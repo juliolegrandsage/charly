@@ -1,0 +1,9 @@
+fichiers:dolphin
+firefox:firefox
+navigateur:navigateur
+disney:disney
+youtube:youtube
+jeux:jeux
+programmation:programmation
+journal:journal
+météo:météo
