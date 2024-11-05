@@ -58,6 +58,18 @@ def ouvrir_steam():
     print("ouverture de steam")
     subprocess.run(["steam"])
 
+def ouvrir_github():
+    print("ouverture de github")
+    webbrowser.open("https://github.com/")
+
+def ouvrir_journal():
+    print("news...")
+    webbrowser.open("https://news.google.com/home?hl=fr&gl=FR&ceid=FR:fr")
+
+def ouvrir_meteo():
+    print("quel temps fait il ???")
+    webbrowser.open("https://meteofrance.com/previsions-meteo-france/landivisiau/29400")
+
 # Chemin vers le modèle Vosk
 model_path = "vosk-model-small-fr-pguyot-0.3"  # Chemin vers le modèle
 model = vosk.Model(model_path)
@@ -86,6 +98,7 @@ def detecter_phrase_activation():
                     command = result["text"].lower()
                     if "charly" in command:
                         print("Phrase d'activation détectée !")
+                        w = wave.open("bonjour.wav", "r")
                         return  # Retourne à l'appelant après avoir détecté la phrase d'activation
             else:
                 print(rec.PartialResult())
@@ -121,6 +134,13 @@ while True:
                         ouvrir_youtube()
                     elif action == "jeux":
                         ouvrir_steam()
+                    elif action == "programmation":
+                        ouvrir_github()
+                        
+                    elif action == "journal":
+                        ouvrir_journal()
+                    elif action == "météo":
+                        ouvrir_meteo()
                     else:
                         print(f"Aucune action définie pour la commande: {command}")
                 else:
@@ -130,22 +150,3 @@ while True:
 
     final_result = json.loads(rec.FinalResult())
     print("Résultat final:", final_result)
-
-    if "text" in final_result:
-        command = final_result["text"].lower()
-        if command in commandes:
-            action = commandes[command]
-            if action == "navigateur":
-                ouvrir_navigateur()
-            elif action == "dolphin":
-                ouvrir_dolphin()
-            elif action == "firefox":
-                ouvrir_firefox()
-            elif action == "disney":
-                ouvrir_disney()
-            elif action == "youtube":
-                ouvrir_youtube()
-            else:
-                print(f"Aucune action définie pour la commande: {command}")
-        else:
-            print(f"Commande non reconnue: {command}")
